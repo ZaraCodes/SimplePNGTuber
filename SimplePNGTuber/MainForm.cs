@@ -88,13 +88,19 @@ namespace SimplePNGTuber
             Icon icon = ConvertToIco(modelSilent, modelSilent.Width);
             notifyIcon.Icon = icon;
             this.Icon = icon;
-            this.Size = new Size(modelSilent.Width, modelSilent.Height + Settings.Instance.AnimationHeight);
-            this.pngTuberImageBox.Size = new Size(modelSilent.Width, modelSilent.Height);
+            int width = (int)(modelSilent.Width * Settings.Instance.ModelScale);
+            int height = (int)(modelSilent.Height * Settings.Instance.ModelScale);
+            this.Size = new Size(width, height + Settings.Instance.AnimationHeight);
+            this.pngTuberImageBox.Size = new Size(width, height);
             pngTuberImageBox.Location = new Point(0, Settings.Instance.AnimationHeight);
         }
 
         private void VoiceStateChanged(object sender, StateChangedEventArgs e)
         {
+            if(!Settings.Instance.AnimateModel)
+            {
+                return;
+            }
             if(e.VoiceActive)
             {
                 animationActive = true;
@@ -122,7 +128,11 @@ namespace SimplePNGTuber
 
         private void BlinkTimer_Tick(object sender, EventArgs e)
         {
-            if(random.Next(2) == 1)
+            if (!Settings.Instance.AnimateModel)
+            {
+                return;
+            }
+            if (random.Next(2) == 1)
             {
                 blink += Settings.Instance.BlinkFrequency;
             }
@@ -230,6 +240,7 @@ namespace SimplePNGTuber
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HttpServer.Instance.Stop();
+            WebSocketServer.Instance.Stop();
             Application.Exit();
         }
     }

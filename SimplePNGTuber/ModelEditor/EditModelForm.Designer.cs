@@ -197,6 +197,7 @@
             this.accessoryListBox.Size = new System.Drawing.Size(379, 147);
             this.accessoryListBox.TabIndex = 0;
             this.accessoryListBox.SelectedIndexChanged += new System.EventHandler(this.AccessoryListBox_SelectedIndexChanged);
+            this.accessoryListBox.DoubleClick += new System.EventHandler(this.accessoryListBox_DoubleClick);
             // 
             // tableLayoutPanel5
             // 
@@ -215,6 +216,7 @@
             // 
             // previewPictureBox
             // 
+            this.previewPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.previewPictureBox.Location = new System.Drawing.Point(3, 3);
             this.previewPictureBox.Name = "previewPictureBox";
             this.previewPictureBox.Size = new System.Drawing.Size(100, 50);
@@ -284,7 +286,6 @@
             this.Name = "EditModelForm";
             this.Text = "Edit Model";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditModelForm_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);

@@ -11,8 +11,6 @@ namespace SimplePNGTuber.ModelEditor
 {
     public partial class EditModelForm : Form
     {
-        string editTmpFolder = Settings.Instance.ModelDir + Path.DirectorySeparatorChar + "modelEditorTmp" + Path.DirectorySeparatorChar;
-
         public EditModelForm()
         {
             InitializeComponent();
@@ -27,6 +25,8 @@ namespace SimplePNGTuber.ModelEditor
 
         private void PopulateForm(PNGModel model)
         {
+            string editTmpFolder = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()) + Path.DirectorySeparatorChar;
+
             modelNameTextBox.Text = model.Name;
             Directory.CreateDirectory(editTmpFolder);
             foreach (var exp in model.expressions)
@@ -52,7 +52,7 @@ namespace SimplePNGTuber.ModelEditor
         {
             if(expressionListBox.SelectedIndex >= 0)
             {
-                if(((EditExpression)expressionListBox.SelectedItem).Name.Equals("neutral"))
+                if (((EditExpression)expressionListBox.SelectedItem).Name.Equals("neutral"))
                 {
                     removeExpButton.Enabled = false;
                 }
@@ -60,8 +60,8 @@ namespace SimplePNGTuber.ModelEditor
                 {
                     removeExpButton.Enabled = true;
                 }
-                previewPictureBox.Image = ((EditExpression)expressionListBox.SelectedItem).Images[0];
-                previewPictureBox.Size = previewPictureBox.Image.Size;
+                var image = ((EditExpression)expressionListBox.SelectedItem).Images[0];
+                SetPreviewImage(image);
             }
             else
             {
@@ -141,13 +141,28 @@ namespace SimplePNGTuber.ModelEditor
         {
             if(accessoryListBox.SelectedIndex >= 0)
             {
-                previewPictureBox.Image = ((EditAccessory) accessoryListBox.SelectedItem).Image;
-                previewPictureBox.Size = previewPictureBox.Image.Size;
+                var image = ((EditAccessory)accessoryListBox.SelectedItem).Image;
+                SetPreviewImage(image);
                 removeAccButton.Enabled = true;
             }
             else
             {
                 removeAccButton.Enabled = false;
+            }
+        }
+
+        private void accessoryListBox_DoubleClick(object sender, EventArgs e)
+        {
+            if (accessoryListBox.SelectedIndex < 0)
+            {
+                return;
+            }
+            else
+            {
+                AccessoryPopup accessoryPopup = new AccessoryPopup((EditAccessory) accessoryListBox.SelectedItem);
+                accessoryPopup.ShowDialog();
+                accessoryListBox.Items.RemoveAt(accessoryListBox.SelectedIndex);
+                AddAccessory(accessoryPopup);
             }
         }
 
@@ -196,34 +211,19 @@ namespace SimplePNGTuber.ModelEditor
             }
         }
 
-        private void EditModelForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void SetPreviewImage(Image image)
         {
-            Thread thread = new Thread(DeleteEditTmpFolder);
-            thread.Start();
-        }
-
-        private void DeleteEditTmpFolder()
-        {
-            bool deleted = false;
-            while(!deleted)
-            {
-                try
-                {
-                    Directory.Delete(editTmpFolder, true);
-                    deleted = true;
-                }
-                catch (Exception)
-                {
-                    deleted = false;
-                    Thread.Sleep(1000);
-                }
-            }
+            previewPictureBox.BackgroundImage = image;
+            var size = image.Size;
+            var scaleFactor = 600.0 / size.Width;
+            var newSize = new Size((int)(size.Width * scaleFactor), (int)(size.Height * scaleFactor));
+            previewPictureBox.Size = newSize;
         }
     }
 
     public struct EditExpression
     {
-        internal static readonly EditExpression Empty = new EditExpression("",
+        internal static EditExpression Empty => new EditExpression("",
             new Image[4] { Resources.diego0, Resources.diego1, Resources.diego0, Resources.diego1 },
             new string[4] { "", "", "", "" });
 
@@ -261,7 +261,7 @@ namespace SimplePNGTuber.ModelEditor
 
         public override string ToString()
         {
-            return Name;
+            return Name + " | Layer " + this.Layer + " | " + this.ImageLocation;
         }
     }
 }

@@ -23,6 +23,8 @@ namespace SimplePNGTuber.Options
             this.voiceThreshold.Value = (int)(Settings.Instance.VoiceThreshold * 100);
             this.voiceSmoothing.Value = (int)(Settings.Instance.VoiceSmoothing * 100);
             this.blinkFrequency.Value = (int)(Settings.Instance.BlinkFrequency * 100);
+            this.modelScale.Value = (int)(Settings.Instance.ModelScale * 100);
+            this.enableAnimCheckbox.Checked = Settings.Instance.AnimateModel;
             this.micCombo.Items.Clear();
             foreach(DeviceInfo info in AudioMonitor.ListInputDevices())
             {
@@ -31,6 +33,7 @@ namespace SimplePNGTuber.Options
             micCombo.SelectedIndex = Settings.Instance.MicDevice + 1;
             bgColorPictureBox.BackColor = Settings.Instance.BackgroundColor;
             serverPort.Value = Settings.Instance.ServerPort;
+            wsServerPort.Value = Settings.Instance.WSServerPort;
 
             LoadModels();
             AudioMonitor.Instance.LevelChanged += HandleLevelChanged;
@@ -76,6 +79,7 @@ namespace SimplePNGTuber.Options
         private void OptionsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Settings.Instance.ServerPort = (int) serverPort.Value;
+            Settings.Instance.WSServerPort = (int) wsServerPort.Value;
             Settings.Instance.Save();
         }
 
@@ -126,6 +130,16 @@ namespace SimplePNGTuber.Options
                 Settings.Instance.BackgroundColor = bgColorDialog.Color;
                 bgColorPictureBox.BackColor = bgColorDialog.Color;
             }
+        }
+
+        private void modelScale_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.Instance.ModelScale = (double) modelScale.Value / 100;
+        }
+
+        private void enableAnimCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Instance.AnimateModel = enableAnimCheckbox.Checked;
         }
     }
 }

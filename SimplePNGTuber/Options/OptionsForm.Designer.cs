@@ -54,6 +54,13 @@
             this.rawLevelProgress = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.wsServerPort = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.modelScale = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.enableAnimCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.voiceThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blinkFrequency)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bgColorPictureBox)).BeginInit();
@@ -61,6 +68,10 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.voiceSmoothing)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wsServerPort)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.modelScale)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // dirText
@@ -164,7 +175,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 356);
+            this.label6.Location = new System.Drawing.Point(11, 26);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(92, 13);
             this.label6.TabIndex = 11;
@@ -173,7 +184,7 @@
             // bgColorPictureBox
             // 
             this.bgColorPictureBox.BackColor = System.Drawing.Color.Cyan;
-            this.bgColorPictureBox.Location = new System.Drawing.Point(113, 352);
+            this.bgColorPictureBox.Location = new System.Drawing.Point(109, 22);
             this.bgColorPictureBox.Name = "bgColorPictureBox";
             this.bgColorPictureBox.Size = new System.Drawing.Size(21, 21);
             this.bgColorPictureBox.TabIndex = 12;
@@ -181,9 +192,9 @@
             // 
             // selectColorBtn
             // 
-            this.selectColorBtn.Location = new System.Drawing.Point(140, 352);
+            this.selectColorBtn.Location = new System.Drawing.Point(136, 21);
             this.selectColorBtn.Name = "selectColorBtn";
-            this.selectColorBtn.Size = new System.Drawing.Size(648, 23);
+            this.selectColorBtn.Size = new System.Drawing.Size(634, 23);
             this.selectColorBtn.TabIndex = 13;
             this.selectColorBtn.Text = "Select Color";
             this.selectColorBtn.UseVisualStyleBackColor = true;
@@ -192,7 +203,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 383);
+            this.label7.Location = new System.Drawing.Point(11, 27);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(60, 13);
             this.label7.TabIndex = 14;
@@ -200,7 +211,7 @@
             // 
             // serverPort
             // 
-            this.serverPort.Location = new System.Drawing.Point(113, 381);
+            this.serverPort.Location = new System.Drawing.Point(95, 25);
             this.serverPort.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -313,18 +324,112 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Model";
             // 
+            // wsServerPort
+            // 
+            this.wsServerPort.Location = new System.Drawing.Point(95, 51);
+            this.wsServerPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.wsServerPort.Name = "wsServerPort";
+            this.wsServerPort.Size = new System.Drawing.Size(675, 20);
+            this.wsServerPort.TabIndex = 20;
+            this.wsServerPort.Value = new decimal(new int[] {
+            8001,
+            0,
+            0,
+            0});
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(11, 53);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(78, 13);
+            this.label11.TabIndex = 19;
+            this.label11.Text = "WSServer Port";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.enableAnimCheckbox);
+            this.groupBox3.Controls.Add(this.modelScale);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.bgColorPictureBox);
+            this.groupBox3.Controls.Add(this.selectColorBtn);
+            this.groupBox3.Location = new System.Drawing.Point(12, 289);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(776, 109);
+            this.groupBox3.TabIndex = 21;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Form Settings";
+            // 
+            // modelScale
+            // 
+            this.modelScale.Location = new System.Drawing.Point(109, 50);
+            this.modelScale.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.modelScale.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.modelScale.Name = "modelScale";
+            this.modelScale.Size = new System.Drawing.Size(661, 20);
+            this.modelScale.TabIndex = 17;
+            this.modelScale.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.modelScale.ValueChanged += new System.EventHandler(this.modelScale_ValueChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(11, 52);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(74, 13);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Model Scale%";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.serverPort);
+            this.groupBox4.Controls.Add(this.wsServerPort);
+            this.groupBox4.Controls.Add(this.label11);
+            this.groupBox4.Location = new System.Drawing.Point(12, 404);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(776, 90);
+            this.groupBox4.TabIndex = 22;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Server Settings";
+            // 
+            // enableAnimCheckbox
+            // 
+            this.enableAnimCheckbox.AutoSize = true;
+            this.enableAnimCheckbox.Location = new System.Drawing.Point(14, 81);
+            this.enableAnimCheckbox.Name = "enableAnimCheckbox";
+            this.enableAnimCheckbox.Size = new System.Drawing.Size(192, 17);
+            this.enableAnimCheckbox.TabIndex = 18;
+            this.enableAnimCheckbox.Text = "Enable Animation in Windows Form";
+            this.enableAnimCheckbox.UseVisualStyleBackColor = true;
+            this.enableAnimCheckbox.CheckedChanged += new System.EventHandler(this.enableAnimCheckbox_CheckedChanged);
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 552);
+            this.ClientSize = new System.Drawing.Size(800, 506);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.serverPort);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.selectColorBtn);
-            this.Controls.Add(this.bgColorPictureBox);
-            this.Controls.Add(this.label6);
             this.Name = "OptionsForm";
             this.Text = "OptionsForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsForm_FormClosing);
@@ -338,8 +443,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.voiceSmoothing)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wsServerPort)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.modelScale)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -371,5 +481,12 @@
         private System.Windows.Forms.ProgressBar rawLevelProgress;
         private System.Windows.Forms.NumericUpDown voiceSmoothing;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown wsServerPort;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.NumericUpDown modelScale;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckBox enableAnimCheckbox;
     }
 }
